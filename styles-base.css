@@ -30,6 +30,8 @@ button { font: inherit; }
 .nav a { text-decoration:none; padding:.58rem .78rem; border-radius:999px; font-size:.84rem; font-weight:600; }
 .nav a:hover, .nav a:focus-visible { background:var(--vontier-mist); outline:none; }
 .nav .nav-cta { background:var(--vontier-ink); color:white; }
+.nav .nav-cta:hover,
+.nav .nav-cta:focus-visible { background:var(--vontier-teal-dark); color:white; }
 .page-shell { overflow:hidden; }
 .container { width:min(1180px, calc(100% - 2rem)); margin-inline:auto; }
 .hero { min-height: 760px; display:grid; align-items:center; padding: clamp(4rem, 8vw, 7rem) 0 5rem; position:relative; }
@@ -54,8 +56,9 @@ h1 .accent { color:var(--vontier-teal-dark); }
 .ring-outer { inset:7%; border-width:18px; border-style:dashed; animation:spin 32s linear infinite; }
 .ring-mid { inset:19%; border-width:28px; border-color:rgba(7,23,21,.18); border-left-color:var(--signal-amber); border-right-color:var(--vontier-teal); animation:spinReverse 19s linear infinite; }
 .ring-inner { inset:33%; border-width:16px; border-color:rgba(255,255,255,.9); animation:pulse 3.2s ease-in-out infinite; }
-.torque-core { position:absolute; inset:41%; border-radius:50%; background:var(--vontier-ink); color:white; display:grid; place-items:center; text-align:center; padding:1rem; z-index:4; font-family:var(--display); text-transform:uppercase; letter-spacing:.08em; font-size:.76rem; box-shadow:0 0 0 10px rgba(255,255,255,.6); }
-.torque-core strong { display:block; font-size:1.8rem; letter-spacing:-.03em; text-transform:none; }
+.torque-core { position:absolute; inset:37%; border-radius:50%; background:var(--vontier-ink); color:white; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:.65rem; z-index:4; font-family:var(--display); text-transform:uppercase; line-height:1.02; letter-spacing:0; font-size:clamp(.58rem,1vw,.74rem); overflow:hidden; box-shadow:0 0 0 10px rgba(255,255,255,.6); }
+.torque-core strong { display:block; font-size:clamp(1.65rem,3vw,2.1rem); line-height:.9; margin-bottom:.32rem; letter-spacing:-.03em; text-transform:none; }
+.torque-core span { display:block; white-space:nowrap; letter-spacing:.12em; }
 .torque-label { position:absolute; z-index:5; background:white; border:1px solid var(--line); border-radius:16px; box-shadow:0 14px 35px rgba(0,50,45,.11); padding:.68rem .8rem; width:148px; font-size:.72rem; line-height:1.2; }
 .torque-label strong { display:block; font-family:var(--display); text-transform:uppercase; letter-spacing:.08em; color:var(--vontier-teal-dark); margin-bottom:.2rem; }
 .label-a { top:6%; left:-1%; }
