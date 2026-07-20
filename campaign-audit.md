@@ -28,7 +28,11 @@ Audit date: 2026-07-20
 - All supporting PDFs: intended page counts confirmed
 - PDF openability and text extraction: passed
 - Contact information and visible candidate-vision URL in resume and cover letter: passed
-- Reciprocal resume/cover-letter navigation: passed
+- Unified six-document navigation: passed on every candidate document view
+- Current-document highlighting: passed
+- Direct current-PDF download controls: passed without new-window targets
+- Desktop and mobile document-toolbar overflow checks: passed
+- Leadership-advantage interview-instruction removal: passed in HTML and regenerated PDF
 - Candidate-facing confidentiality scan: passed
 - Internal project-system names and source-repository links: absent from candidate-facing artifacts
 
