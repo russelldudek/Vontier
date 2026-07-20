@@ -26,13 +26,14 @@ jobs:
 
       - name: Generate application PDFs
         run: |
-          python -m pip install --disable-pip-version-check playwright
+          python -m pip install --disable-pip-version-check playwright beautifulsoup4 pypdf
           python scripts/generate_pdfs.py
 
-      - name: Verify PDF pagination
+      - name: Verify campaign and PDF pagination
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils
+          python tests/qa.py
           test "$(pdfinfo docs/Russell-Dudek-Vontier-Resume.pdf | awk '/^Pages:/ {print $2}')" = "2"
           test "$(pdfinfo docs/Russell-Dudek-Vontier-Cover-Letter.pdf | awk '/^Pages:/ {print $2}')" = "1"
           test "$(pdfinfo docs/Russell-Dudek-Vontier-Executive-Brief.pdf | awk '/^Pages:/ {print $2}')" = "2"
@@ -59,3 +60,24 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify public candidate campaign
+        run: |
+          for attempt in $(seq 1 18); do
+            if curl -fsSL "https://russelldudek.github.io/Vontier/" -o /tmp/vontier-index.html \
+              && grep -q "Innovation creates motion" /tmp/vontier-index.html \
+              && curl -fsSL "https://russelldudek.github.io/Vontier/docs/Russell-Dudek-Vontier-Resume.pdf" -o /tmp/vontier-resume.pdf \
+              && test "$(pdfinfo /tmp/vontier-resume.pdf | awk '/^Pages:/ {print $2}')" = "2" \
+              && curl -fsSL "https://russelldudek.github.io/Vontier/docs/Russell-Dudek-Vontier-Cover-Letter.pdf" -o /tmp/vontier-cover-letter.pdf \
+              && test "$(pdfinfo /tmp/vontier-cover-letter.pdf | awk '/^Pages:/ {print $2}')" = "1"; then
+              printf '%s\n' "Public candidate vision, two-page resume, and one-page cover letter verified." > deployment-verified.txt
+              git add deployment-verified.txt
+              if ! git diff --cached --quiet; then
+                git commit -m "Verify public candidate campaign"
+                git push origin HEAD:main
+              fi
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
