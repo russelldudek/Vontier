@@ -1,0 +1,87 @@
+name: Apply direct document downloads
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace viewer-tab links with direct downloads
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+          pages = [
+              'resume.html',
+              'cover-letter.html',
+              'executive-brief.html',
+              'interview-brief.html',
+              '120-day-plan.html',
+              'leadership-advantage.html',
+          ]
+          pattern = re.compile(r'href="(docs/([^\"]+\.pdf))"\s+target="_blank"\s+rel="noopener"')
+          for name in pages:
+              path = root / name
+              source = path.read_text(encoding='utf-8')
+              updated = pattern.sub(r'href="\1" download="\2"', source)
+              path.write_text(updated, encoding='utf-8')
+
+          test_path = root / 'tests/user_feedback_regression.py'
+          test_source = test_path.read_text(encoding='utf-8')
+          old = '''    # PDF controls should open a real document even in embedded document viewers.\n    pdf_link = soup.select_one('.doc-toolbar a[href$=".pdf"]')\n    if pdf_link:\n        assert pdf_link.get("target") == "_blank", page_name\n        assert "noopener" in (pdf_link.get("rel") or []), page_name\n        assert (ROOT / pdf_link["href"].removeprefix("./")).exists(), page_name\n'''
+          new = '''    # PDF controls should trigger a direct same-page download, not open a viewer tab.\n    pdf_link = soup.select_one('.doc-toolbar a[href$=".pdf"]')\n    if pdf_link:\n        assert pdf_link.has_attr("download"), page_name\n        assert not pdf_link.has_attr("target"), page_name\n        assert (ROOT / pdf_link["href"].removeprefix("./")).exists(), page_name\n'''
+          if old in test_source:
+              test_source = test_source.replace(old, new)
+          test_path.write_text(test_source, encoding='utf-8')
+          PY
+
+      - name: Verify direct-download controls
+        run: |
+          python -m pip install --disable-pip-version-check beautifulsoup4
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+
+          root = Path('.')
+          pages = [
+              'resume.html',
+              'cover-letter.html',
+              'executive-brief.html',
+              'interview-brief.html',
+              '120-day-plan.html',
+              'leadership-advantage.html',
+          ]
+          for name in pages:
+              soup = BeautifulSoup((root / name).read_text(encoding='utf-8'), 'html.parser')
+              link = soup.select_one('.doc-toolbar a[href$=".pdf"]')
+              assert link is not None, name
+              assert link.has_attr('download'), name
+              assert not link.has_attr('target'), name
+              assert (root / link['href']).exists(), name
+          print('All document controls use direct downloads.')
+          PY
+
+      - name: Commit direct-download behavior
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add resume.html cover-letter.html executive-brief.html interview-brief.html 120-day-plan.html leadership-advantage.html tests/user_feedback_regression.py
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Make document buttons download PDFs directly"
+          git pull --rebase origin main
+          git push origin HEAD:main
