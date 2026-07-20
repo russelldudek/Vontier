@@ -38,6 +38,9 @@ for name, expected_count in expected_pages.items():
     assert 'russelldudek.github.io/vontier/' in lowered, name
     assert 'roleforge' not in lowered, name
     assert 'github.com/russelldudek/vontier' not in lowered, name
+    if name == 'Russell-Dudek-Vontier-Leadership-Advantage.pdf':
+        assert 'interview proof move' not in lowered, name
+        assert 'ask russell to map' not in lowered, name
 
 for name in ('Russell-Dudek-Vontier-Resume.pdf', 'Russell-Dudek-Vontier-Cover-Letter.pdf'):
     reader = PdfReader(root / 'docs' / name)
@@ -64,12 +67,25 @@ for path in html_files:
         if target:
             assert (root / target).exists(), f'Broken local link in {path.name}: {href}'
 
-resume = BeautifulSoup((root / 'resume.html').read_text(), 'html.parser')
-cover = BeautifulSoup((root / 'cover-letter.html').read_text(), 'html.parser')
-assert resume.find('a', string=lambda value: value and 'View Cover Letter' in value)
-assert cover.find('a', string=lambda value: value and 'View Resume' in value)
-assert resume.find('a', string=lambda value: value and 'Download PDF' in value)
-assert cover.find('a', string=lambda value: value and 'Download PDF' in value)
+document_pages = {
+    'resume.html': 'Resume',
+    'cover-letter.html': 'Cover Letter',
+    'executive-brief.html': 'Executive Brief',
+    'interview-brief.html': 'Interview Brief',
+    '120-day-plan.html': '120-Day Plan',
+    'leadership-advantage.html': 'Leadership Advantage',
+}
+for page_name, current_label in document_pages.items():
+    soup = BeautifulSoup((root / page_name).read_text(), 'html.parser')
+    toolbar = soup.select_one('.doc-toolbar')
+    assert toolbar is not None, page_name
+    for href, label in document_pages.items():
+        assert toolbar.find('a', href=href, string=label), (page_name, label)
+    current = toolbar.select_one('a[aria-current="page"]')
+    assert current and current.get_text(strip=True) == current_label, page_name
+    download = toolbar.select_one('a[data-download-current]')
+    assert download and download.has_attr('download'), page_name
+    assert not download.has_attr('target'), page_name
 
 for path in root.rglob('*'):
     if path.is_file() and path.suffix.lower() in {'.html', '.css', '.js', '.md', '.yml', '.yaml'}:
