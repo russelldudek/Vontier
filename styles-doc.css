@@ -1,6 +1,9 @@
 .doc-body { background:#eaf1f0; }
 .doc-shell { width:min(980px, calc(100% - 1rem)); margin:2rem auto 4rem; }
-.doc-toolbar { display:flex; gap:.7rem; flex-wrap:wrap; justify-content:flex-end; margin-bottom:1rem; }
+.doc-toolbar { display:flex; gap:.55rem; flex-wrap:wrap; align-items:center; justify-content:flex-start; margin-bottom:1rem; padding:.75rem; border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.78); box-shadow:0 10px 28px rgba(0,50,45,.06); }
+.doc-toolbar .btn { padding:.66rem .86rem; font-size:.82rem; }
+.doc-toolbar .doc-tab.is-active { background:var(--vontier-mist); color:var(--vontier-teal-dark); border-color:rgba(0,163,155,.32); box-shadow:inset 0 0 0 1px rgba(0,163,155,.08); }
+.doc-toolbar .doc-download { margin-left:auto; }
 .sheet { width:8.5in; min-height:11in; margin:0 auto 1.25rem; background:white; box-shadow:0 20px 60px rgba(0,35,32,.14); padding:.48in .55in .48in; position:relative; overflow:visible; }
 .sheet + .sheet { page-break-before:always; }
 .doc-header { display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:end; border-bottom:4px solid var(--vontier-teal); padding-bottom:.16in; margin-bottom:.2in; }
