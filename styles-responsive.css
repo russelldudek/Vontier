@@ -21,6 +21,9 @@
   .doc-header { grid-template-columns:1fr; }
   .doc-company { text-align:left; }
   .doc-contact { font-size:.72rem; }
+  .doc-toolbar { padding:.65rem; gap:.45rem; }
+  .doc-toolbar .btn { flex:1 1 calc(50% - .45rem); padding:.64rem .7rem; }
+  .doc-toolbar .doc-download { flex-basis:100%; margin-left:0; }
 }
 @media (prefers-reduced-motion: reduce){
   html { scroll-behavior:auto; }
