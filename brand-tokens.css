@@ -1,0 +1,16 @@
+:root {
+  --vontier-teal: #00a39b;
+  --vontier-teal-dark: #007f79;
+  --vontier-ink: #071715;
+  --vontier-ink-2: #102b28;
+  --vontier-mist: #edf7f5;
+  --vontier-paper: #fbfdfc;
+  --signal-amber: #ffb547;
+  --signal-blue: #5fb5e6;
+  --signal-red: #d75f59;
+  --line: rgba(7, 23, 21, 0.14);
+  --shadow: 0 24px 80px rgba(0, 45, 42, 0.14);
+  --radius: 26px;
+  --display: "Rajdhani", "Arial Nova", "Aptos Display", "Segoe UI", sans-serif;
+  --body: "IBM Plex Sans", "Aptos", "Segoe UI", sans-serif;
+}

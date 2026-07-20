@@ -1,0 +1,39 @@
+.resume-proof-strip {
+  margin-top:.15in;
+  border-top:2px solid var(--vontier-teal);
+  padding-top:.1in;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:.16in;
+}
+.resume-proof-strip h4 {
+  margin:0 0 .035in;
+  font-family:var(--display);
+  color:var(--vontier-teal-dark);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  font-size:8.4pt;
+}
+.resume-proof-strip p { margin:0; font-size:7.55pt; line-height:1.3; color:#315350; }
+@media (max-width:680px){ .resume-proof-strip { grid-template-columns:1fr; gap:.75rem; } }
+.executive-brief-doc .brief-title {
+  font-size:32pt;
+  line-height:.93;
+  max-width:18ch;
+  margin:.11in 0 .17in;
+}
+.executive-brief-doc .brief-grid { gap:.14in; }
+.executive-brief-doc .brief-card { padding:.15in; }
+.executive-brief-doc .brief-card h3 { font-size:13.4pt; margin-bottom:.055in; }
+.executive-brief-doc .brief-card p,
+.executive-brief-doc .brief-card li { font-size:9.2pt; line-height:1.36; }
+.resume-proof-strip { margin-top:.12in; padding-top:.08in; }
+.resume-proof-strip p { font-size:7.4pt; line-height:1.26; }
+.resume-doc .sheet:first-of-type .doc-summary { margin:.18in 0 .2in; }
+.resume-doc .sheet:first-of-type .experience { margin-bottom:.16in; }
+.resume-doc .sheet:first-of-type .experience ul { line-height:1.32; }
+.resume-doc .sheet:first-of-type .experience li { margin-bottom:.035in; }
+.resume-doc .sheet:first-of-type .side-block { padding:.13in; margin-bottom:.11in; }
+.resume-doc .sheet:first-of-type .side-block h3 { font-size:10.8pt; margin-bottom:.055in; }
+.resume-doc .sheet:first-of-type .side-block p,
+.resume-doc .sheet:first-of-type .side-block li { font-size:8.4pt; line-height:1.32; }

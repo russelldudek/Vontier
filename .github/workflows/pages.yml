@@ -1,0 +1,61 @@
+name: Build and deploy candidate vision
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate application PDFs
+        run: |
+          python -m pip install --disable-pip-version-check playwright
+          python scripts/generate_pdfs.py
+
+      - name: Verify PDF pagination
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          test "$(pdfinfo docs/Russell-Dudek-Vontier-Resume.pdf | awk '/^Pages:/ {print $2}')" = "2"
+          test "$(pdfinfo docs/Russell-Dudek-Vontier-Cover-Letter.pdf | awk '/^Pages:/ {print $2}')" = "1"
+          test "$(pdfinfo docs/Russell-Dudek-Vontier-Executive-Brief.pdf | awk '/^Pages:/ {print $2}')" = "2"
+          test "$(pdfinfo docs/Russell-Dudek-Vontier-Interview-Brief.pdf | awk '/^Pages:/ {print $2}')" = "6"
+          test "$(pdfinfo docs/Russell-Dudek-Vontier-120-Day-Plan.pdf | awk '/^Pages:/ {print $2}')" = "3"
+          test "$(pdfinfo docs/Russell-Dudek-Vontier-Leadership-Advantage.pdf | awk '/^Pages:/ {print $2}')" = "2"
+
+      - name: Commit generated PDFs when needed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/*.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate verified application PDFs"
+            git push origin HEAD:main
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

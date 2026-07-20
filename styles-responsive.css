@@ -1,0 +1,53 @@
+@media (max-width: 960px){
+  .hero-grid,.section-head,.model-grid,.simulator-grid,.cta,.proof-wide { grid-template-columns:1fr; }
+  .torque-stage { min-height:520px; }
+  .tension-grid,.timeline { grid-template-columns:repeat(2,1fr); }
+  .timeline::before { display:none; }
+  .proof:nth-child(n){grid-column:span 12}
+  .cta-actions { justify-content:flex-start; }
+  .sheet { width:100%; min-height:auto; padding:clamp(1rem,4vw,2rem); }
+}
+@media (max-width: 680px){
+  .site-header { align-items:flex-start; }
+  .brand-lockup img { width:120px; }
+  .brand-lockup span { display:none; }
+  .nav a:not(.nav-cta) { display:none; }
+  .hero { min-height:auto; }
+  .torque-stage { min-height:450px; }
+  .torque-label { width:120px; font-size:.62rem; }
+  .label-a{left:0}.label-b{right:0}.label-c{right:0}.label-d{left:0}
+  .tension-grid,.timeline,.gates,.brief-grid,.doc-grid,.footer-grid { grid-template-columns:1fr; }
+  .sim-status,.output-readout { grid-template-columns:1fr; display:grid; }
+  .doc-header { grid-template-columns:1fr; }
+  .doc-company { text-align:left; }
+  .doc-contact { font-size:.72rem; }
+}
+@media (prefers-reduced-motion: reduce){
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  .ring-outer,.ring-mid,.energy-path { transform:rotate(22deg); }
+}
+@media print {
+  @page { size: Letter; margin:0; }
+  body.doc-body { background:white; }
+  .site-header,.doc-toolbar,.site-footer,.screen-only { display:none !important; }
+  .print-only { display:block; }
+  .doc-shell { width:auto; margin:0; }
+  .sheet { width:8.5in; height:11in; min-height:11in; margin:0; box-shadow:none; overflow:hidden; page-break-after:always; }
+  .sheet:last-child { page-break-after:auto; }
+  a { color:inherit; text-decoration:none; }
+}
+
+/* Responsive document re-composition */
+@media (max-width: 680px){
+  .resume-doc .doc-grid,
+  .brief-doc .brief-grid,
+  .letter-doc .letter-meta { grid-template-columns:1fr; }
+  .resume-doc .doc-grid { gap:1.25rem; }
+  .brief-doc .brief-title { font-size:clamp(2.2rem, 12vw, 3.4rem); max-width:none; }
+  .doc-contact,
+  .continuation,
+  .side-block,
+  .brief-card,
+  .letter-body { overflow-wrap:anywhere; }
+}

@@ -1,0 +1,84 @@
+.doc-body { background:#eaf1f0; }
+.doc-shell { width:min(980px, calc(100% - 1rem)); margin:2rem auto 4rem; }
+.doc-toolbar { display:flex; gap:.7rem; flex-wrap:wrap; justify-content:flex-end; margin-bottom:1rem; }
+.sheet { width:8.5in; min-height:11in; margin:0 auto 1.25rem; background:white; box-shadow:0 20px 60px rgba(0,35,32,.14); padding:.48in .55in .48in; position:relative; overflow:visible; }
+.sheet + .sheet { page-break-before:always; }
+.doc-header { display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:end; border-bottom:4px solid var(--vontier-teal); padding-bottom:.16in; margin-bottom:.2in; }
+.doc-name { font-family:var(--display); font-size:25pt; line-height:.9; letter-spacing:-.03em; }
+.doc-role { font-family:var(--display); text-transform:uppercase; letter-spacing:.08em; font-weight:700; color:var(--vontier-teal-dark); font-size:9pt; margin-top:4px; }
+.doc-company { text-align:right; }
+.doc-company img { width:120px; height:auto; }
+.doc-contact { font-size:7.4pt; color:#385653; margin-top:.1in; display:flex; gap:.11in; flex-wrap:wrap; }
+.doc-contact a { text-decoration:none; }
+.doc-summary { margin:.16in 0 .18in; font-size:9.2pt; line-height:1.36; color:#243f3c; }
+.doc-grid { display:grid; grid-template-columns:1.47fr .63fr; gap:.25in; }
+.doc-section { margin-bottom:.17in; }
+.doc-section h2 { font-family:var(--display); font-size:12.6pt; line-height:1; margin:0 0 .08in; text-transform:uppercase; letter-spacing:.06em; color:var(--vontier-teal-dark); border-bottom:1px solid #c9dcda; padding-bottom:4px; }
+.experience { margin-bottom:.14in; break-inside:avoid; }
+.exp-head { display:flex; justify-content:space-between; gap:1rem; align-items:baseline; }
+.exp-head h3 { margin:0; font-family:var(--display); font-size:10.7pt; }
+.exp-head span { font-size:7.4pt; color:#58716e; white-space:nowrap; }
+.exp-title { font-weight:700; font-size:8.2pt; color:#315350; margin:.02in 0 .04in; }
+.experience ul { margin:.04in 0 0 .15in; padding:0; font-size:7.8pt; line-height:1.28; }
+.experience li { margin-bottom:.035in; }
+.side-block { background:#edf7f5; border-radius:12px; padding:.12in; margin-bottom:.12in; break-inside:avoid; }
+.side-block h3 { font-family:var(--display); font-size:10pt; margin:0 0 .06in; text-transform:uppercase; letter-spacing:.06em; }
+.side-block p, .side-block li { font-size:7.6pt; line-height:1.28; }
+.side-block ul { margin:.03in 0 0 .14in; padding:0; }
+.page-number { position:absolute; bottom:.22in; right:.55in; font-size:7pt; color:#718a87; }
+.continuation { font-size:7.4pt; color:#476663; border-bottom:1px solid #c9dcda; padding-bottom:.07in; margin-bottom:.16in; }
+.letter-body { font-size:9.2pt; line-height:1.47; color:#223f3c; }
+.letter-body p { margin:.12in 0; }
+.signature { margin-top:.2in; }
+.signature strong { font-family:var(--display); font-size:14pt; }
+.brief-title { font-family:var(--display); font-size:28pt; line-height:.95; margin:.1in 0 .16in; }
+.brief-kicker { color:var(--vontier-teal-dark); text-transform:uppercase; letter-spacing:.11em; font-weight:700; font-size:8pt; }
+.brief-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:.15in; }
+.brief-card { border:1px solid #cfe0de; border-radius:13px; padding:.14in; break-inside:avoid; }
+.brief-card h3 { font-family:var(--display); font-size:12pt; margin:0 0 .05in; }
+.brief-card p, .brief-card li { font-size:8.2pt; line-height:1.34; }
+.brief-card ul { margin:.04in 0 0 .15in; padding:0; }
+.full { grid-column:1/-1; }
+.matrix { width:100%; border-collapse:collapse; font-size:7.6pt; }
+.matrix th, .matrix td { padding:.06in; border:1px solid #d2e2e0; vertical-align:top; }
+.matrix th { background:#e6f4f2; color:#164c47; text-align:left; }
+.print-only { display:none; }
+
+/* Print-document composition refinements */
+.resume-doc .doc-name { font-size:28pt; }
+.resume-doc .doc-role { font-size:10pt; }
+.resume-doc .doc-contact { font-size:8.1pt; gap:.13in; line-height:1.35; }
+.resume-doc .doc-summary { margin:.21in 0 .24in; font-size:10.2pt; line-height:1.46; }
+.resume-doc .doc-grid { grid-template-columns:1.5fr .62fr; gap:.27in; }
+.resume-doc .doc-section h2 { font-size:14pt; margin-bottom:.11in; padding-bottom:5px; }
+.resume-doc .experience { margin-bottom:.205in; }
+.resume-doc .exp-head h3 { font-size:12pt; }
+.resume-doc .exp-head span { font-size:8.1pt; }
+.resume-doc .exp-title { font-size:9.2pt; margin:.025in 0 .055in; }
+.resume-doc .experience ul { font-size:8.8pt; line-height:1.38; margin-left:.18in; }
+.resume-doc .experience li { margin-bottom:.048in; }
+.resume-doc .side-block { padding:.16in; margin-bottom:.17in; border-radius:14px; }
+.resume-doc .side-block h3 { font-size:11.2pt; margin-bottom:.075in; }
+.resume-doc .side-block p,
+.resume-doc .side-block li { font-size:8.55pt; line-height:1.38; }
+.resume-doc .continuation { font-size:8.15pt; padding-bottom:.085in; margin-bottom:.21in; }
+
+.letter-doc .letter-body { font-size:10.55pt; line-height:1.55; margin-top:.24in; }
+.letter-doc .letter-body p { margin:.155in 0; }
+.letter-doc .letter-meta { display:grid; grid-template-columns:.7fr 1fr; column-gap:.3in; align-items:start; margin-bottom:.2in; }
+.letter-doc .letter-meta p:first-child { grid-row:1 / span 2; color:#466763; }
+.letter-doc .letter-meta p { margin:0 0 .1in; }
+.letter-doc .signature { margin-top:.25in; }
+
+.brief-doc .brief-kicker { font-size:9.4pt; letter-spacing:.12em; }
+.brief-doc .brief-title { font-size:37pt; line-height:.9; margin:.13in 0 .25in; max-width:12ch; }
+.brief-doc .brief-grid { gap:.22in; }
+.brief-doc .brief-card { padding:.2in; border-radius:15px; }
+.brief-doc .brief-card h3 { font-size:14.2pt; margin-bottom:.08in; }
+.brief-doc .brief-card p,
+.brief-doc .brief-card li { font-size:9.9pt; line-height:1.46; }
+.brief-doc .brief-card li { margin-bottom:.04in; }
+.brief-doc .matrix { font-size:8.8pt; line-height:1.35; }
+.brief-doc .matrix th,
+.brief-doc .matrix td { padding:.09in; }
+.brief-doc .continuation { font-size:8.4pt; margin-bottom:.22in; }
